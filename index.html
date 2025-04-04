@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Made for My Mom ❤️</title>
+</head>
+<body style="font-family: sans-serif; text-align: center; padding-top: 50px;">
+  <h2>Made for My Mom 💖</h2>
+  <input type="text" id="urlInput" placeholder="Paste YouTube URL here" style="width: 300px; padding: 10px;">
+  <br><br>
+  <select id="format" style="padding: 10px;">
+    <option value="mp4">MP4 (Video)</option>
+    <option value="mp3">MP3 (Audio)</option>
+  </select>
+  <br><br>
+  <button onclick="download()" style="padding: 10px 20px;">Download</button>
+
+  <div id="result" style="margin-top: 30px; font-size: 18px;"></div>
+
+  <script>
+    async function download() {
+      const url = document.getElementById("urlInput").value;
+      const format = document.getElementById("format").value;
+
+      document.getElementById("result").innerText = "Downloading... Please wait.";
+
+      const res = await fetch('/download', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ url, format })
+      });
+
+      const data = await res.json();
+      if (data.download_url) {
+        document.getElementById('result').innerHTML =
+          `<a href="${data.download_url}" download>✅ Click here to download</a>`;
+      } else {
+        document.getElementById('result').innerText = '❌ Error: ' + (data.error || 'Unknown error');
+      }
+    }
+  </script>
+</body>
+</html>
