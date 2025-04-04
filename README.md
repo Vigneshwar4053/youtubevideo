@@ -1,4 +1,4 @@
-# YouTube Downloader for Mom ❤️
+# YouTube Downloader for My Mom ❤️
 
 A simple web app that lets my mom download YouTube videos as MP4 or MP3 in high quality.
 
